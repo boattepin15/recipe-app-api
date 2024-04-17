@@ -3,3 +3,7 @@
     docker-compose build
     docker-compose run --rm 
     docker-compose up
+
+#git cmd
+	git init
+	git add .
