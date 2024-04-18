@@ -7,3 +7,4 @@
 #git cmd
 	git init
 	git add .
+	git push --force origin main
