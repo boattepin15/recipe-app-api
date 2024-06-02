@@ -1,6 +1,13 @@
 from django.apps import AppConfig
 
-
 class CoreConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'core'
+    """
+    "What": คอนฟิกเริ่มต้นสำหรับแอปพลิเคชัน 'core'.
+    "Where": ใช้ใน settings.py ของ Django สำหรับกำหนดแอปพลิเคชัน.
+    "When": โหลดทุกครั้งที่เริ่มต้นระบบ.
+    "Why": กำหนดค่าพื้นฐานสำหรับโมเดลในแอปพลิเคชันนี้เพื่อใช้ BigAutoField แทน AutoField เพื่อการจัดการข้อมูลขนาดใหญ่.
+    "How": Django จะอ่านค่าจากคลาสนี้เพื่อกำหนดพารามิเตอร์ต่างๆ ในการเริ่มต้นแอปพลิเคชัน.
+    กำหนด auto_field สำหรับการใช้งานฐานข้อมูลเพื่อให้รองรับการเพิ่มข้อมูลในปริมาณมาก.
+    """
+    default_auto_field = 'django.db.models.BigAutoField'  # กำหนดให้ใช้ BigAutoField สำหรับฟิลด์ที่สร้างขึ้นโดยอัตโนมัติในโมเดล.
+    name = 'core'  # ชื่อของแอปพลิเคชัน ใช้ในการอ้างอิงภายในการตั้งค่า Django หรือเมื่อทำงานกับคำสั่ง manage.py.
