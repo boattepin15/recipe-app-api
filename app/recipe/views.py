@@ -2,19 +2,33 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-
 from core.models import Recipe
 from recipe import serializers
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
     """ View for manage recipe APIs"""
-    serialzer_class = serializers.RecipeSerialzer
+    serializer_class = serializers.RecipeDeailSerializer
     queryset = Recipe.objects.all()
-    authenticaition_classes = [TokenAuthentication]
-    permissions_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        """ Retrieve recipes for authentocatopm user."""
+        """ Retrieve recipes for authenticated user."""
+        if self.request.user.is_anonymous:
+            return Recipe.objects.none()
         return self.queryset.filter(user=self.request.user).order_by('-id')
+    
+    def get_serializer_class(self):
+        """ Return the serializer class for request"""
+        if self.action == "list":
+            return serializers.RecipeDeailSerializer
+        
+        return self.serializer_class
+
+    def perform_create(self, serializer):
+        """ Create a new recipe"""
+        serializer.save(user=self.request.user)
+    
+
     
